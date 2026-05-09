@@ -320,6 +320,40 @@
     margin-bottom: 16px;
   }
 
+  .warning-list {
+    list-style: none;
+    margin-top: 16px;
+  }
+
+  .warning-list li {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 0 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(200,146,122,0.2);
+    color: var(--rose-light);
+    font-size: 14px;
+    line-height: 1.85;
+  }
+
+  .warning-list li:last-child { border-bottom: none; }
+
+  .warning-list .num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--rose);
+    padding-top: 3px;
+  }
+
+  .warning-list .zh { margin-bottom: 4px; }
+
+  .warning-list .en {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+
   hr.thin {
     border: none;
     border-top: 1px solid var(--border);
@@ -386,18 +420,9 @@
       </div>
     </div>
 
-    <div class="block">
-      <div class="block-text">
-        我不是只做單一任務的人。我的核心能力是同時整合品牌、商業、美感、敘事、系統與市場感知，看見一件事背後的底層結構，然後重新組裝成更高效率、更有生命力的形式。我最擅長的不是照表操課，是看見別人還沒看見的東西。
-      </div>
-      <div class="block-text-en">
-        I do not operate in a single lane. My core strength is integrating brand, business, aesthetics, narrative, systems, and market sensing simultaneously — seeing the underlying structure of something and reassembling it into a more efficient, more alive form. What I do best is see what others have not yet seen.
-      </div>
-    </div>
-
     <div class="highlight">
-      <p>我的想法更新很快。只要你給的是有邏輯、有現實基礎、有更好解法的資訊，我很願意修正自己。但沒有理由的反對、出於恐懼的保守、沒看懂就批評——這些我不接受。</p>
-      <p class="en">I update quickly. Give me logic, evidence, and a better solution — I will genuinely revise my position. But opposition without reason, conservatism rooted in fear, or criticism without understanding — those I will not receive.</p>
+      <p>我的判斷更新很快。給我有邏輯、有現實基礎、有更好解法的資訊，我很願意修正自己的立場。挑戰我的方式是帶新的事實或新的角度來，不是重複你的意見或訴諸情緒。</p>
+      <p class="en">My positions update quickly. Bring me logic, evidence, and a better solution — I will genuinely revise. The way to challenge me is with new information or a new angle, not by repeating your view or appealing to emotion.</p>
     </div>
   </div>
 
@@ -617,25 +642,57 @@
 
     <div class="warning">
       <div class="w-title">Things That End Collaborations / 會終止合作的事</div>
-      <p>說一套做一套。你的行為和你說的話頻率不一致，我會感應到，而且我不會再信任你。</p>
-      <p>繞路。有話請直說，不要透過第三方傳話，不要用迂迴的方式試探我的底線。</p>
-      <p>控制。你可以有意見，不可以用情緒、壓力、或重複施壓的方式推翻我的決策。</p>
-      <p>隱瞞關鍵資訊。如果你知道某件事會影響我的判斷，你有責任告訴我。</p>
-      <p>情緒勒索。用「你變了」「我都是為了你」「你怎麼可以這樣」來要求我配合——我重視真誠，但不接受綁架。</p>
-      <p>表面支持、實際壓制。表面說「我是為你好」，實際上在限制、評價、壓低我，或讓我懷疑自己。這種模式我辨識得非常快。</p>
-      <p>只想利用能力，不承擔責任。進入核心位置卻不承擔對應的責任，這不是合作，是消耗。</p>
-    </div>
-
-    <div class="block" style="margin-top:24px;">
-      <div class="block-text-en" style="font-style:normal; font-family:'Cormorant Garamond'; font-size:16px; color:#4A3F38; line-height:1.9;">
-        Say one thing, do another — I will feel the misalignment before I can explain it, and trust will not recover easily.<br><br>
-        Go around instead of direct — come to me, not intermediaries.<br><br>
-        Control through emotion or pressure — you can disagree, you cannot override.<br><br>
-        Withhold information that affects my decisions — that is a breach, not an omission.<br><br>
-        Emotional coercion — binding me through guilt or obligation is not relationship; it is leverage.<br><br>
-        Perform support while suppressing — I recognize this pattern quickly and I will close.<br><br>
-        Take core access without taking responsibility — that is extraction, not partnership.
-      </div>
+      <ul class="warning-list">
+        <li>
+          <span class="num">01</span>
+          <div>
+            <div class="zh">說一套做一套。行為與言語不一致，我會感應到，信任不容易修復。</div>
+            <div class="en">Say one thing, do another — I feel the misalignment before I can name it, and trust does not recover easily.</div>
+          </div>
+        </li>
+        <li>
+          <span class="num">02</span>
+          <div>
+            <div class="zh">繞路溝通。有話直說，不要透過第三方傳話，不要用迂迴方式試探我的底線。</div>
+            <div class="en">Go around instead of direct — come to me, not through intermediaries.</div>
+          </div>
+        </li>
+        <li>
+          <span class="num">03</span>
+          <div>
+            <div class="zh">用情緒或壓力控制決策。你可以有不同意見，不可以用施壓的方式推翻我的判斷。</div>
+            <div class="en">Control through emotion or pressure — you can disagree, you cannot override.</div>
+          </div>
+        </li>
+        <li>
+          <span class="num">04</span>
+          <div>
+            <div class="zh">隱瞞會影響我判斷的關鍵資訊。知道卻不說，是主動的失信，不是疏忽。</div>
+            <div class="en">Withhold information that affects my decisions — that is a breach, not an omission.</div>
+          </div>
+        </li>
+        <li>
+          <span class="num">05</span>
+          <div>
+            <div class="zh">情緒勒索。用罪惡感或義務來要求我配合——我重視真誠，不接受綁架。</div>
+            <div class="en">Emotional coercion — binding me through guilt or obligation is leverage, not relationship.</div>
+          </div>
+        </li>
+        <li>
+          <span class="num">06</span>
+          <div>
+            <div class="zh">表面支持、實際壓制。這種模式我辨識得很快，一旦感應到，我會關閉。</div>
+            <div class="en">Perform support while suppressing — I recognize this pattern quickly, and I will close.</div>
+          </div>
+        </li>
+        <li>
+          <span class="num">07</span>
+          <div>
+            <div class="zh">進入核心位置卻不承擔對應責任。這不是合作，是消耗。</div>
+            <div class="en">Take core access without taking responsibility — that is extraction, not partnership.</div>
+          </div>
+        </li>
+      </ul>
     </div>
   </div>
 
