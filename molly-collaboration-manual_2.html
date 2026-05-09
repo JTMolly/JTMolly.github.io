@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Work With Molly / 如何與 Molly 共事</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&family=Noto+Serif+TC:wght@300;400;600&display=swap');
+
+  :root {
+    --rose: #C8927A;
+    --rose-light: #E8C4B4;
+    --rose-pale: #F5EBE6;
+    --ink: #1C1612;
+    --ink-mid: #4A3F38;
+    --ink-soft: #8C7B72;
+    --gold: #B8965A;
+    --cream: #FAF6F2;
+    --white: #FFFFFF;
+    --border: rgba(200, 146, 122, 0.25);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Serif TC', 'Cormorant Garamond', serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.8;
+    font-size: 15px;
+  }
+
+  /* COVER */
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 80px 10vw;
+    background: var(--ink);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,146,122,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: -100px; left: 5vw;
+    width: 1px; height: 400px;
+    background: linear-gradient(to bottom, transparent, var(--rose), transparent);
+  }
+
+  .cover-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: var(--rose);
+    text-transform: uppercase;
+    margin-bottom: 48px;
+  }
+
+  .cover-title-en {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(42px, 6vw, 80px);
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1.1;
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+  }
+
+  .cover-title-zh {
+    font-family: 'Noto Serif TC', serif;
+    font-size: clamp(18px, 2.5vw, 32px);
+    font-weight: 300;
+    color: var(--rose-light);
+    letter-spacing: 0.15em;
+    margin-bottom: 64px;
+  }
+
+  .cover-desc {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-soft);
+    letter-spacing: 0.1em;
+    max-width: 480px;
+    line-height: 2;
+  }
+
+  .cover-line {
+    width: 60px;
+    height: 1px;
+    background: var(--rose);
+    margin-bottom: 32px;
+  }
+
+  /* CONTENT */
+  .content {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 80px 40px 120px;
+  }
+
+  /* SECTION */
+  .section {
+    margin-bottom: 80px;
+    padding-bottom: 80px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section:last-child {
+    border-bottom: none;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+
+  .section-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--rose);
+    letter-spacing: 0.2em;
+    flex-shrink: 0;
+  }
+
+  .section-title-en {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--ink);
+    font-style: italic;
+    letter-spacing: 0.02em;
+  }
+
+  .section-title-zh {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 13px;
+    color: var(--ink-soft);
+    letter-spacing: 0.2em;
+    margin-top: 4px;
+  }
+
+  /* BLOCKS */
+  .block {
+    margin-bottom: 32px;
+  }
+
+  .block-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--rose);
+    margin-bottom: 10px;
+  }
+
+  .block-text {
+    color: var(--ink-mid);
+    line-height: 1.9;
+    font-size: 15px;
+  }
+
+  .block-text-en {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+    font-weight: 300;
+    color: var(--ink-mid);
+    line-height: 1.85;
+    font-style: italic;
+    margin-top: 8px;
+  }
+
+  /* HIGHLIGHT BOX */
+  .highlight {
+    background: var(--rose-pale);
+    border-left: 3px solid var(--rose);
+    padding: 24px 28px;
+    margin: 28px 0;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .highlight p {
+    color: var(--ink-mid);
+    font-size: 15px;
+    line-height: 1.9;
+    margin-bottom: 8px;
+  }
+
+  .highlight p:last-child { margin-bottom: 0; }
+
+  .highlight .en {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: var(--ink-soft);
+  }
+
+  /* GRID */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 24px;
+  }
+
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    padding: 24px;
+    border-radius: 2px;
+  }
+
+  .card-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    color: var(--rose);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .card p {
+    font-size: 14px;
+    color: var(--ink-mid);
+    line-height: 1.85;
+  }
+
+  /* ROLE TABLE */
+  .role-row {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    padding: 20px 0;
+    align-items: start;
+  }
+
+  .role-row:first-child {
+    border-top: 1px solid var(--border);
+  }
+
+  .role-name {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--rose);
+    text-transform: uppercase;
+    padding-top: 2px;
+  }
+
+  .role-desc {
+    font-size: 14px;
+    color: var(--ink-mid);
+    line-height: 1.85;
+  }
+
+  /* WARNING */
+  .warning {
+    background: #1C1612;
+    color: var(--rose-light);
+    padding: 24px 28px;
+    margin: 28px 0;
+    border-radius: 2px;
+  }
+
+  .warning .w-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    color: var(--rose);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .warning p {
+    font-size: 14px;
+    line-height: 1.9;
+    color: var(--rose-light);
+    margin-bottom: 6px;
+  }
+
+  .warning p:last-child { margin-bottom: 0; }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    padding: 60px 40px;
+    background: var(--ink);
+    color: var(--ink-soft);
+  }
+
+  .footer-note {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--ink-soft);
+    line-height: 2;
+  }
+
+  .footer-mark {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-style: italic;
+    color: var(--rose);
+    margin-bottom: 16px;
+  }
+
+  hr.thin {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 28px 0;
+  }
+
+  @media (max-width: 640px) {
+    .content { padding: 60px 24px 80px; }
+    .cover { padding: 60px 8vw; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .role-row { grid-template-columns: 1fr; gap: 6px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-label">A Field Guide to Collaboration</div>
+  <div class="cover-title-en">How to Work<br>With Molly</div>
+  <div class="cover-title-zh">如何與 Molly 共事</div>
+  <div class="cover-line"></div>
+  <div class="cover-desc">
+    This document exists so we don't waste time.<br>
+    Read it before we begin anything together.<br><br>
+    這份文件的存在，是為了讓我們不浪費彼此的時間。<br>
+    在我們開始任何合作之前，請先讀完它。
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+
+  <!-- 01 WHO I AM -->
+  <div class="section">
+    <div class="section-header">
+      <div>
+        <div class="section-num">01</div>
+        <div class="section-title-en">Who I Am</div>
+        <div class="section-title-zh">我是誰</div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-text">
+        我是岩寬生醫的創辦人與執行長，公司第八年。我的工作是看見方向、建立架構、做決策。我不是執行者，也不打算成為執行者。
+      </div>
+      <div class="block-text-en">
+        I am the founder and CEO of Acheloy Biomedicine, now in its eighth year. My role is to see the direction, build the architecture, and make decisions. I am not an operator, and I have no intention of becoming one.
+      </div>
+    </div>
+
+    <div class="highlight">
+      <p>我的人類圖類型是<strong>顯示者（Manifestor）</strong>。這意味著我天生的工作方式是：在內部跑完一個完整的思考與感知週期，然後直接行動或告知。我不需要共識來驅動決策。</p>
+      <p class="en">My Human Design type is a <strong>Manifestor</strong>. This means my natural working mode is to run a complete internal sensing cycle, then act or inform. I do not require consensus to make decisions.</p>
+    </div>
+
+    <div class="block">
+      <div class="block-text">
+        我的感知方式是立體的、跨維度的。當我與人互動時，我同時在閱讀對方的動機、情緒狀態、歷史模式與未來走向。這不是刻意為之，是我本來的運作方式。這代表你說的話與你底層的狀態不一致時，我會知道。
+      </div>
+      <div class="block-text-en">
+        My perception is three-dimensional. When I interact with someone, I am simultaneously reading their motivations, emotional state, behavioral patterns, and likely trajectory. This is not deliberate — it is simply how I operate. Which means: if what you say and what you actually feel are misaligned, I will notice.
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-text">
+        我不是只做單一任務的人。我的核心能力是同時整合品牌、商業、美感、敘事、系統與市場感知，看見一件事背後的底層結構，然後重新組裝成更高效率、更有生命力的形式。我最擅長的不是照表操課，是看見別人還沒看見的東西。
+      </div>
+      <div class="block-text-en">
+        I do not operate in a single lane. My core strength is integrating brand, business, aesthetics, narrative, systems, and market sensing simultaneously — seeing the underlying structure of something and reassembling it into a more efficient, more alive form. What I do best is see what others have not yet seen.
+      </div>
+    </div>
+
+    <div class="highlight">
+      <p>我的想法更新很快。只要你給的是有邏輯、有現實基礎、有更好解法的資訊，我很願意修正自己。但沒有理由的反對、出於恐懼的保守、沒看懂就批評——這些我不接受。</p>
+      <p class="en">I update quickly. Give me logic, evidence, and a better solution — I will genuinely revise my position. But opposition without reason, conservatism rooted in fear, or criticism without understanding — those I will not receive.</p>
+    </div>
+  </div>
+
+  <!-- 02 HOW I MAKE DECISIONS -->
+  <div class="section">
+    <div class="section-header">
+      <div>
+        <div class="section-num">02</div>
+        <div class="section-title-en">How I Make Decisions</div>
+        <div class="section-title-zh">我如何做決策</div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-text">
+        我的人類圖內在權威是<strong>情緒型</strong>。這意味著我需要時間讓一個決定在我內部完整地走過一個情緒波，才能做出清晰的判斷。
+      </div>
+      <div class="block-text-en">
+        My Human Design inner authority is <strong>Emotional</strong>. This means I need time for a decision to move through a complete emotional wave internally before I can reach clarity.
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">請這樣做 / Do This</div>
+        <p>給我時間。提前給我資訊，讓我有空間消化。當我說「我再想想」，這不是拒絕，是我的正常流程。</p>
+        <p style="margin-top:10px; font-style:italic; font-size:13px; color:#8C7B72;">Give me time. Share information early so I can process. When I say "let me think about it," that is not a deflection — it is my process.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">不要這樣做 / Not This</div>
+        <p>不要在當下逼我立刻給答案。不要用「你覺得呢」把決策壓回給我同時要求即時回應。這只會讓我需要更長時間。</p>
+        <p style="margin-top:10px; font-style:italic; font-size:13px; color:#8C7B72;">Do not pressure me for an immediate answer in the moment. Urgency from outside disrupts my clarity — it does not accelerate it.</p>
+      </div>
+    </div>
+
+    <div class="highlight" style="margin-top:28px;">
+      <p>當我已經決定時，我會直接說，行動會很快。那個快，是因為前面我已經跑完了。</p>
+      <p class="en">When I have decided, I will tell you directly, and movement will be fast. That speed is possible because the internal work was already done.</p>
+    </div>
+  </div>
+
+  <!-- 03 HOW I COMMUNICATE -->
+  <div class="section">
+    <div class="section-header">
+      <div>
+        <div class="section-num">03</div>
+        <div class="section-title-en">How I Communicate</div>
+        <div class="section-title-zh">我的溝通方式</div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-text">
+        我說話直接。我給你的是我真實的判斷，不是你想聽的版本。這不是不尊重，是我唯一會給你的品質。
+      </div>
+      <div class="block-text-en">
+        I communicate directly. What I give you is my honest assessment, not the version you want to hear. This is not disrespect — it is the only quality I will offer.
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-text">
+        我的思考是多線並行的，有時我說話的方式會跳躍。如果你跟不上，請問我「你現在在說哪一層？」這是有效的溝通方式。
+      </div>
+      <div class="block-text-en">
+        My thinking runs on multiple threads simultaneously. My speech can jump between layers. If you lose the thread, ask: "Which layer are you on right now?" That is a valid and useful question.
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-text">
+        我不喜歡被過度解釋或說服。如果你要改變我的想法，給我新的事實或新的角度，不要給我情緒或壓力。
+      </div>
+      <div class="block-text-en">
+        I do not respond well to over-explanation or persuasion through repetition. If you want to change my mind, bring new facts or a new angle. Emotional pressure or persistence will not work.
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">最有效的溝通格式 / Most Effective Format</div>
+        <p>直接、清楚、有結論、有選項、有依據、有下一步。例如：「目前有 A、B、C 三個選項。我建議 B，原因是成本最低、風險可控、兩週內能驗證。」這讓我可以立刻進入決策。</p>
+        <p style="margin-top:10px; font-style:italic; font-size:13px; color:#8C7B72;">Direct, clear, with a conclusion, options, rationale, and a next step. Example: "There are three options: A, B, C. I recommend B — lowest cost, manageable risk, verifiable in two weeks." This gets me into decision mode immediately.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">會拖慢一切的溝通 / What Slows Everything Down</div>
+        <p>繞圈子、只丟問題不帶方案、講很多但沒結論、用模糊語言讓我猜、把你的焦慮轉移給我處理。如果你還沒整理好，請說「我需要 30 分鐘整理，再回報。」這是可以接受的。</p>
+        <p style="margin-top:10px; font-style:italic; font-size:13px; color:#8C7B72;">Circling, bringing problems without solutions, talking at length without a conclusion, vague language, transferring anxiety to me. If you need time to organize, say so. That is acceptable. Dumping half-formed thoughts is not.</p>
+      </div>
+    </div>
+
+    <div class="highlight" style="margin-top:28px;">
+      <p>我說話時可能在表面談一件小事，但真正處理的是更底層的問題——品牌定位、權力結構、長期風險。如果你不確定我在哪個層次，直接問：「你現在在說哪一層？」這是有效率的溝通。</p>
+      <p class="en">I may appear to be discussing something small on the surface while actually addressing a deeper issue — brand positioning, power structure, long-term risk. If you are not sure which level I am operating on, ask directly. It is the efficient move.</p>
+    </div>
+  </div>
+
+  <!-- 04 ENERGY & WORKING RHYTHM -->
+  <div class="section">
+    <div class="section-header">
+      <div>
+        <div class="section-num">04</div>
+        <div class="section-title-en">Energy & Working Rhythm</div>
+        <div class="section-title-zh">我的能量與工作節奏</div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-text">
+        顯示者的能量結構與薦骨型（Generator/MG）不同。我不是持續輸出的引擎。我會有高度專注、快速推進的爆發期，也需要真正的休息期，不是表面的停工。
+      </div>
+      <div class="block-text-en">
+        As a Manifestor, my energy works differently from Generators. I am not a continuous-output engine. I have bursts of intense, fast-moving focus — and I require genuine rest, not just pauses between tasks.
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">高效合作時機 / When I'm Most Effective</div>
+        <p>方向已定、架構清楚、你來執行細節。我在前期設計架構、後期審核品質。中間的執行交給你。</p>
+      </div>
+      <div class="card">
+        <div class="card-title">能量耗損來源 / What Drains Me</div>
+        <p>重複解釋同一件事。需要管理對方情緒才能推進工作。頻繁的小問題確認。沒有必要的會議。把混亂直接丟給我處理。</p>
+      </div>
+    </div>
+
+    <div class="highlight" style="margin-top:28px;">
+      <p>最理想的合作方式：你理解方向之後，獨立執行，有重大決策點再來找我。不需要持續報告，需要清晰的節點交付。</p>
+      <p class="en">The ideal collaboration: you understand the direction, execute independently, and bring me in at decision points — not for continuous check-ins. I need clear delivery milestones, not progress updates.</p>
+    </div>
+
+    <div class="block" style="margin-top:28px;">
+      <div class="block-label">如何讓我發揮最大價值 / How to Unlock My Best Work</div>
+      <div class="block-text">
+        幫我減少雜訊。把混亂整理成選項再來找我：問題是什麼、目前狀況、三個選項、各自優缺點、你的建議、需要我決定什麼。這個格式讓我可以在最短時間給你最清楚的答案。
+      </div>
+      <div class="block-text-en">
+        Reduce noise for me. Organize chaos into options before bringing it to me: what is the problem, current state, three options, pros and cons, your recommendation, what you need me to decide. This format gets you my clearest answer in the shortest time.
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-text">
+        我很容易因為靈感太多而同時開很多線。好的合作夥伴會幫我排序，而不是讓我繼續開更多線。提醒我「這個有價值，但放進第二階段」不是否定我，是幫我。
+      </div>
+      <div class="block-text-en">
+        I tend to open many threads at once when ideas are flowing. A good collaborator helps me sequence, not accumulate. Saying "this is valuable, but it belongs in phase two" is not a rejection — it is support.
+      </div>
+    </div>
+  </div>
+
+  <!-- 05 WHAT I EXPECT BY ROLE -->
+  <div class="section">
+    <div class="section-header">
+      <div>
+        <div class="section-num">05</div>
+        <div class="section-title-en">What I Expect, By Role</div>
+        <div class="section-title-zh">不同角色，我的期待</div>
+      </div>
+    </div>
+
+    <div class="role-row">
+      <div class="role-name">股東<br>Investor /<br>Shareholder</div>
+      <div class="role-desc">
+        你帶來的是資源，不只是資金。我需要知道你帶來什麼、你的邊界在哪、你期待介入到什麼程度。投資之後，請信任我的判斷做公司決策，帶資源進來，不要帶控制欲進來。如果你對方向有疑問，請直接說，不要繞道。<br><br>
+        <em style="color:#8C7B72; font-size:13px;">You bring resources, not just capital. I need to know what you bring, where your boundaries are, and how much involvement you expect. Post-investment: trust my judgment on operations, bring resources in, not control. If you have doubts about direction, say it directly.</em>
+      </div>
+    </div>
+
+    <div class="role-row">
+      <div class="role-name">合夥人<br>Partner</div>
+      <div class="role-desc">
+        你負責你的域，我負責我的域。邊界清楚才能快速。我尊重你的專業，請你尊重我的架構。我們做的是互補，不是競爭。決策上有歧異時，我們說出來，不要累積。<br><br>
+        <em style="color:#8C7B72; font-size:13px;">You own your domain; I own mine. Clean boundaries enable speed. I respect your expertise — respect my architecture. We are complementary, not competing. If there is a disagreement, surface it. Do not let it accumulate.</em>
+      </div>
+    </div>
+
+    <div class="role-row">
+      <div class="role-name">外包廠商<br>Vendor /<br>Contractor</div>
+      <div class="role-desc">
+        我給你清楚的方向和標準，細節由你主導。過程中有任何不確定的地方，請直接問，不要猜、不要憑感覺交付。交付前請先自我審核一次。我們彼此都有各自擅長的事，我希望你在你的專業範圍裡做到最好，我在我的範圍裡支持你。<br><br>
+        <em style="color:#8C7B72; font-size:13px;">I give you clear direction and quality standards — the execution details are yours to lead. If anything is unclear during the process, ask directly rather than guessing. Please self-review before delivery. We each have our strengths; I want you to bring your best to your scope, and I will support you in mine.</em>
+      </div>
+    </div>
+
+    <div class="role-row">
+      <div class="role-name">顧問<br>Advisor</div>
+      <div class="role-desc">
+        我邀請你進來，是因為我需要你在特定範圍裡給我真實的外部視角、專業審核，或幫我打開我目前還沒有的資源與連結。這三件事你可以同時帶，也可以只帶其中一個，但請讓我清楚知道你能給什麼、你的邊界在哪。<br><br>
+        你的角色是給建議，不是做決策。除非我正式授權，否則請不要代表我行動、對外承諾，或在未告知我的情況下推進任何事。有好的想法請直接告訴我，我會決定要不要採用、怎麼執行。<br><br>
+        我最需要的是你講真話。不需要因為我是委託方就告訴我我想聽的。你的價值在於你看到我看不到的地方，或你願意說出我需要但不一定舒服的事。<br><br>
+        <em style="color:#8C7B72; font-size:13px;">I invite you in for honest external perspective, expert review in your domain, or to open doors I don't yet have access to — sometimes all three. Be clear with me about what you can offer and where your limits are.<br><br>
+        Your role is advisory, not executive. Unless I formally authorize otherwise, please do not act on my behalf, make commitments externally, or advance anything without informing me first. Bring me your ideas directly — I will decide whether and how to move.<br><br>
+        What I need most is your honesty. You don't need to tell me what I want to hear because I'm the one who invited you. Your value is in seeing what I can't see, or saying what I need to hear but might not be comfortable with.</em>
+      </div>
+    </div>
+
+    <div class="role-row">
+      <div class="role-name">員工<br>Team Member</div>
+      <div class="role-desc">
+        我需要你能夠獨立判斷、獨立執行，同時清楚知道什麼事情需要讓我知道。不需要持續匯報，但需要在重要節點主動告知。犯錯沒關係，隱瞞不行。我對能力不足可以接受，對誠信問題零容忍。<br><br>
+        <em style="color:#8C7B72; font-size:13px;">I need you to execute independently and know when to escalate. No constant reporting, but proactive communication at key moments. Mistakes are fine. Concealment is not. I can work with skill gaps. I cannot work with integrity gaps.</em>
+      </div>
+    </div>
+  </div>
+
+  <!-- 06 RED LINES -->
+  <div class="section">
+    <div class="section-header">
+      <div>
+        <div class="section-num">06</div>
+        <div class="section-title-en">Hard Lines</div>
+        <div class="section-title-zh">我的地雷</div>
+      </div>
+    </div>
+
+    <div class="warning">
+      <div class="w-title">Things That End Collaborations / 會終止合作的事</div>
+      <p>說一套做一套。你的行為和你說的話頻率不一致，我會感應到，而且我不會再信任你。</p>
+      <p>繞路。有話請直說，不要透過第三方傳話，不要用迂迴的方式試探我的底線。</p>
+      <p>控制。你可以有意見，不可以用情緒、壓力、或重複施壓的方式推翻我的決策。</p>
+      <p>隱瞞關鍵資訊。如果你知道某件事會影響我的判斷，你有責任告訴我。</p>
+      <p>情緒勒索。用「你變了」「我都是為了你」「你怎麼可以這樣」來要求我配合——我重視真誠，但不接受綁架。</p>
+      <p>表面支持、實際壓制。表面說「我是為你好」，實際上在限制、評價、壓低我，或讓我懷疑自己。這種模式我辨識得非常快。</p>
+      <p>只想利用能力，不承擔責任。進入核心位置卻不承擔對應的責任，這不是合作，是消耗。</p>
+    </div>
+
+    <div class="block" style="margin-top:24px;">
+      <div class="block-text-en" style="font-style:normal; font-family:'Cormorant Garamond'; font-size:16px; color:#4A3F38; line-height:1.9;">
+        Say one thing, do another — I will feel the misalignment before I can explain it, and trust will not recover easily.<br><br>
+        Go around instead of direct — come to me, not intermediaries.<br><br>
+        Control through emotion or pressure — you can disagree, you cannot override.<br><br>
+        Withhold information that affects my decisions — that is a breach, not an omission.<br><br>
+        Emotional coercion — binding me through guilt or obligation is not relationship; it is leverage.<br><br>
+        Perform support while suppressing — I recognize this pattern quickly and I will close.<br><br>
+        Take core access without taking responsibility — that is extraction, not partnership.
+      </div>
+    </div>
+  </div>
+
+  <!-- 07 COLLABORATION STRUCTURES -->
+  <div class="section">
+    <div class="section-header">
+      <div>
+        <div class="section-num">07</div>
+        <div class="section-title-en">Preferred Collaboration Structures</div>
+        <div class="section-title-zh">我偏好的合作結構</div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-text">
+        我可以信任人，但不會把核心命脈太早交出去。合作關係的深度要與實際貢獻和信任的積累相對應。
+      </div>
+      <div class="block-text-en">
+        I can trust people, but I do not hand over core assets prematurely. The depth of a collaboration should match the actual contribution and accumulated trust — not just intent or enthusiasm.
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">適合的結構 / Structures That Work</div>
+        <p>階段性合作、KPI 解鎖、分潤制、專案制、小比例股權搭配 Vesting 機制、明確的權限切割。進入越深，責任越清楚。</p>
+        <p style="margin-top:10px; font-style:italic; font-size:13px; color:#8C7B72;">Phased collaboration, KPI-unlocked equity, profit-sharing, project-based, small equity with vesting, clear authority delineation. Deeper access requires clearer accountability.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">不適合的結構 / Structures That Don't</div>
+        <p>一開始就給大股、權責不清、情感式合作、口頭承諾過多、沒有退出機制、因為感動就綁死。</p>
+        <p style="margin-top:10px; font-style:italic; font-size:13px; color:#8C7B72;">Large equity up front, unclear accountability, emotionally-driven agreements, excessive verbal commitments, no exit mechanism, binding decisions made on sentiment.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 08 WHAT GOOD LOOKS LIKE -->
+  <div class="section">
+    <div class="section-header">
+      <div>
+        <div class="section-num">08</div>
+        <div class="section-title-en">What Good Looks Like</div>
+        <div class="section-title-zh">最好的合作是什麼樣子</div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-text">
+        最好的合作狀態是：你理解我在建什麼，你相信這個方向，你在你負責的範圍裡做到最好，有問題直接來找我，我們彼此都不需要消耗能量在管理對方。
+      </div>
+      <div class="block-text-en">
+        The best collaboration looks like this: you understand what I am building, you believe in the direction, you execute your scope at full quality, you come to me directly when there is a real question — and neither of us wastes energy managing the other.
+      </div>
+    </div>
+
+    <div class="highlight">
+      <p>我的目標不是永遠最忙的那個人。我的目標是建立一個不需要我在場才能運轉的系統，然後退回去做我最擅長的事：看見方向、研發創新、授權擴張。</p>
+      <p class="en">My goal is not to be the busiest person in the room. My goal is to build a system that runs without my constant presence — and then step back to do what I do best: see direction, develop IP, and expand through licensing.</p>
+    </div>
+
+    <div class="block">
+      <div class="block-text">
+        如果你與我合作，你選擇的是一個長期視野的合作夥伴，不是一個應急的解法。我需要你也是。
+      </div>
+      <div class="block-text-en">
+        If you choose to work with me, you are choosing a long-horizon partner, not a short-term fix. I need you to be the same.
+      </div>
+    </div>
+
+    <div class="warning" style="margin-top:28px;">
+      <div class="w-title">最高原則 / The One Principle</div>
+      <p style="font-size:16px; line-height:2;">不要控制我，要協助我落地。不要壓縮我，要幫我放大。不要消耗我，要和我一起建立更高品質的系統。</p>
+      <p style="margin-top:12px; font-style:italic; font-size:14px; color:var(--rose-light);">Don't control me — help me land. Don't compress me — help me amplify. Don't drain me — build something higher quality with me.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-mark">M</div>
+  <div class="footer-note">
+    岩寬生醫 · Acheloy Biomedicine<br>
+    Founder & CEO · Molly<br><br>
+    This document is a living reference.<br>
+    這份文件會持續更新。
+  </div>
+</div>
+
+</body>
+</html>
